@@ -1,0 +1,25 @@
+<div class="layout" [class.sidebar-expanded]="sidebarMode === 'expanded'"
+     [class.sidebar-collapsed]="sidebarMode === 'collapsed'"
+     [class.sidebar-hidden]="sidebarMode === 'hidden'">
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay"
+       *ngIf="isMobileOverlayVisible"
+       (click)="closeMobileOverlay()">
+  </div>
+
+  <!-- Sidebar -->
+  <app-sidebar
+    [mode]="sidebarMode"
+    (modeChange)="onSidebarModeChange($event)">
+  </app-sidebar>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <app-topbar (toggleSidebar)="toggleSidebar()"></app-topbar>
+    <div class="page-content">
+      <app-breadcrumb></app-breadcrumb>
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

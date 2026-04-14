@@ -1,0 +1,54 @@
+<div class="detail-page" *ngIf="!isLoading && visit">
+  <app-page-header [title]="'Visit — ' + (visit.visitorName || '')" subtitle="Visit Details">
+    <button mat-button (click)="onBack()"><mat-icon>arrow_back</mat-icon> Back</button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">Visitor</span>
+          <span class="detail-value">{{ visit.visitorName }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Host</span>
+          <span class="detail-value">{{ visit.hostName }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Location</span>
+          <span class="detail-value">{{ visit.locationName || '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Purpose</span>
+          <span class="detail-value">{{ visit.purpose || '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Status</span>
+          <span class="detail-value"><app-status-badge [status]="visit.status"></app-status-badge></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Scheduled</span>
+          <span class="detail-value">{{ visit.scheduledDateTime | date:'MMM d, y h:mm a' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Check In</span>
+          <span class="detail-value">{{ visit.checkInTime ? (visit.checkInTime | date:'MMM d, y h:mm a') : '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Check Out</span>
+          <span class="detail-value">{{ visit.checkOutTime ? (visit.checkOutTime | date:'MMM d, y h:mm a') : '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Access Card</span>
+          <span class="detail-value">{{ visit.accessCardNumber || '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Remarks</span>
+          <span class="detail-value">{{ visit.remarks || '—' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>

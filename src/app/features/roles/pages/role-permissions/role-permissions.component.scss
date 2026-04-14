@@ -1,0 +1,58 @@
+.permissions-page { padding: 0; }
+
+.permissions-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.permissions-table {
+  th.perm-col, td.perm-col {
+    text-align: center;
+    width: 100px;
+  }
+
+  th.perm-col {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+
+    .col-toggle {
+      display: block;
+      margin: 4px auto 0;
+    }
+  }
+
+  .col-toggle {
+    transform: scale(0.85);
+    margin: 0 auto;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #F3F4F6;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+@media (max-width: 767px) {
+  .permissions-table {
+    th.perm-col, td.perm-col {
+      width: 70px;
+      font-size: 11px;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column;
+    button { width: 100%; }
+  }
+}

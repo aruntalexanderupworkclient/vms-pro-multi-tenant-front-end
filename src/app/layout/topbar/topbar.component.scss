@@ -1,0 +1,237 @@
+$primary: #2563EB;
+$text-primary: #111827;
+$text-secondary: #6B7280;
+$border: #E5E7EB;
+$bg-card: #FFFFFF;
+$shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+
+.topbar {
+  height: 64px;
+  background: $bg-card;
+  border-bottom: 1px solid $border;
+  box-shadow: $shadow;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-secondary;
+  transition: background 0.15s;
+  &:hover { background: #F3F4F6; }
+  .material-icons { font-size: 24px; }
+}
+
+.topbar-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+// ── SignalR Connection Status Indicator ──
+.connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: default;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  // ── Connected (green) ──
+  &.connected {
+    background: #ECFDF5;
+    border-color: #A7F3D0;
+    color: #059669;
+
+    .status-dot {
+      background: #10B981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+      animation: pulse-green 2s infinite;
+    }
+  }
+
+  // ── Reconnecting (amber) ──
+  &.reconnecting {
+    background: #FFFBEB;
+    border-color: #FDE68A;
+    color: #D97706;
+
+    .status-dot {
+      background: #F59E0B;
+      box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+      animation: pulse-amber 1.2s infinite;
+    }
+  }
+
+  // ── Disconnected (red) ──
+  &.disconnected {
+    background: #FEF2F2;
+    border-color: #FECACA;
+    color: #DC2626;
+
+    .status-dot {
+      background: #EF4444;
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+    }
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+.topbar-icon-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  color: $text-secondary;
+  transition: background 0.15s;
+  &:hover { background: #F3F4F6; }
+  .material-icons { font-size: 22px; }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s;
+  &:hover { background: #F3F4F6; }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $primary;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  .arrow {
+    font-size: 18px;
+    color: $text-secondary;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 180px;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: $text-primary;
+  cursor: pointer;
+  transition: background 0.15s;
+  &:hover { background: #F9FAFB; }
+  .material-icons { font-size: 18px; color: $text-secondary; }
+}
+
+@media (max-width: 767px) {
+  .topbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .topbar-left {
+    gap: 8px;
+  }
+
+  .topbar-title {
+    font-size: 16px;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topbar-right {
+    gap: 8px;
+  }
+
+  .user-menu {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .user-name { display: none; }
+  .connection-status .status-label { display: none; }
+
+  .dropdown {
+    right: -8px;
+    min-width: 160px;
+  }
+}

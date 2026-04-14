@@ -1,0 +1,83 @@
+<div class="list-page">
+  <app-page-header title="Visitor Directory" subtitle="Manage all registered visitors">
+    <button mat-raised-button color="primary" (click)="onNew()" *ngIf="canCreate">
+      <mat-icon>add</mat-icon> New Visitor
+    </button>
+  </app-page-header>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [formControl]="searchControl" placeholder="Search visitors..." />
+    </mat-form-field>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-body table-responsive" *ngIf="!isLoading">
+      <table class="data-table" *ngIf="visitors.length > 0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of visitors" class="clickable" (click)="onView(v)">
+            <td>
+              <div class="cell-with-avatar">
+                <div class="avatar avatar-sm">{{ v.fullName | initials }}</div>
+                <span>{{ v.fullName }}</span>
+              </div>
+            </td>
+            <td>{{ v.email || '—' }}</td>
+            <td>{{ v.phone || '—' }}</td>
+            <td>{{ v.company || '—' }}</td>
+            <td>
+              <span class="badge" [class.badge-danger]="v.isBlacklisted" [class.badge-success]="!v.isBlacklisted">
+                {{ v.isBlacklisted ? 'Blacklisted' : 'Active' }}
+              </span>
+            </td>
+            <td>{{ v.createdAt | date:'MMM d, y' }}</td>
+            <td class="text-right actions-cell" (click)="$event.stopPropagation()">
+              <button mat-icon-button (click)="onEdit(v)" *ngIf="canUpdate" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="onDelete(v)" *ngIf="canDelete" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-empty-state *ngIf="visitors.length === 0"
+        icon="people_outline" title="No visitors found"
+        message="No visitors match your search or no visitors have been added yet."
+        [actionLabel]="canCreate ? 'Add Visitor' : ''"
+        (action)="onNew()">
+      </app-empty-state>
+    </div>
+
+    <div class="card-body loading-state" *ngIf="isLoading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button mat-icon-button [disabled]="page === 1" (click)="onPageChange(page - 1)">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+      <button mat-icon-button [disabled]="page === totalPages" (click)="onPageChange(page + 1)">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

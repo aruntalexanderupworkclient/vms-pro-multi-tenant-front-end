@@ -1,0 +1,9 @@
+<div class="empty-state">
+  <span class="material-icons empty-icon">{{ icon }}</span>
+  <h3>{{ title }}</h3>
+  <p *ngIf="message">{{ message }}</p>
+  <button mat-raised-button color="primary" *ngIf="actionLabel" (click)="action.emit()" class="empty-action-btn">
+    {{ actionLabel }}
+  </button>
+  <ng-content></ng-content>
+</div>

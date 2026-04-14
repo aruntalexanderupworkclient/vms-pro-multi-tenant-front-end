@@ -1,0 +1,80 @@
+<div class="register-page">
+  <div class="register-left">
+    <div class="register-left-content">
+      <div class="illustration-icon">
+        <span class="material-icons">apartment</span>
+      </div>
+      <h2>Join VMS Pro</h2>
+      <p>Set up your organization's visitor management system in minutes.</p>
+      <div class="feature-list">
+        <div class="feature-item"><span class="material-icons">check_circle</span> Multi-tenant support</div>
+        <div class="feature-item"><span class="material-icons">check_circle</span> Customizable visitor forms</div>
+        <div class="feature-item"><span class="material-icons">check_circle</span> Real-time notifications</div>
+        <div class="feature-item"><span class="material-icons">check_circle</span> Advanced reporting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="register-right">
+    <div class="register-form-card">
+      <div class="register-logo">
+        <div class="logo-icon"><span class="material-icons">verified_user</span></div>
+        <span class="logo-text">VMS Pro</span>
+      </div>
+
+      <h1>Create Account</h1>
+      <p class="register-desc">Fill in the details to set up your account</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="fullName" placeholder="John Doe" />
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="f.fullName.hasError('required')">Full name is required</mat-error>
+          <mat-error *ngIf="f.fullName.hasError('minlength')">Minimum 2 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="you@company.com" />
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="f.email.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="f.email.hasError('email')">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="••••••••" />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="f.password.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="f.password.hasError('minlength')">Minimum 6 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" placeholder="+1234567890" />
+          <mat-icon matPrefix>phone</mat-icon>
+          <mat-error *ngIf="f.phoneNumber.hasError('pattern')">Enter a valid phone number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Organization Name</mat-label>
+          <input matInput formControlName="tenantName" placeholder="Acme Corporation" />
+          <mat-icon matPrefix>business</mat-icon>
+          <mat-error *ngIf="f.tenantName.hasError('required')">Organization name is required</mat-error>
+          <mat-error *ngIf="f.tenantName.hasError('minlength')">Minimum 2 characters</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="btn-full" [disabled]="isLoading">
+          <span class="spinner" *ngIf="isLoading"></span>
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </button>
+      </form>
+
+      <p class="login-link">Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+    </div>
+  </div>
+</div>

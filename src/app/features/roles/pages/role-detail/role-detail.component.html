@@ -1,0 +1,39 @@
+<div class="detail-page" *ngIf="!isLoading && role">
+  <app-page-header [title]="role.name" subtitle="Role Details">
+    <button mat-button (click)="onBack()"><mat-icon>arrow_back</mat-icon> Back</button>
+    <button mat-raised-button color="primary" (click)="onEdit()"><mat-icon>edit</mat-icon> Edit</button>
+    <button mat-raised-button (click)="onPermissions()"><mat-icon>security</mat-icon> Permissions</button>
+  </app-page-header>
+  <div class="card">
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item"><span class="detail-label">Name</span><span class="detail-value">{{ role.name }}</span></div>
+        <div class="detail-item"><span class="detail-label">Description</span><span class="detail-value">{{ role.description || '—' }}</span></div>
+        <div class="detail-item"><span class="detail-label">Is Admin</span><span class="detail-value">{{ role.isAdmin ? 'Yes' : 'No' }}</span></div>
+        <div class="detail-item"><span class="detail-label">Status</span>
+          <span class="detail-value"><span class="badge" [class.badge-success]="role.isActive" [class.badge-danger]="!role.isActive">{{ role.isActive ? 'Active' : 'Inactive' }}</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="role.permissions && role.permissions.length > 0" style="margin-top: 20px;">
+    <div class="card-header"><h3>Permissions</h3></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Menu</th><th>Read</th><th>Create</th><th>Update</th><th>Delete</th><th>Print</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let p of role.permissions">
+            <td>{{ p.menuName }}</td>
+            <td><mat-icon [class.green]="p.canRead">{{ p.canRead ? 'check_circle' : 'cancel' }}</mat-icon></td>
+            <td><mat-icon [class.green]="p.canCreate">{{ p.canCreate ? 'check_circle' : 'cancel' }}</mat-icon></td>
+            <td><mat-icon [class.green]="p.canUpdate">{{ p.canUpdate ? 'check_circle' : 'cancel' }}</mat-icon></td>
+            <td><mat-icon [class.green]="p.canDelete">{{ p.canDelete ? 'check_circle' : 'cancel' }}</mat-icon></td>
+            <td><mat-icon [class.green]="p.canPrint">{{ p.canPrint ? 'check_circle' : 'cancel' }}</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>

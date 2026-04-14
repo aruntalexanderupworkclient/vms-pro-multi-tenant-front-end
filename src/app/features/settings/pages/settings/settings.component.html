@@ -1,0 +1,18 @@
+<div class="settings-page">
+  <h1 class="page-title">Settings</h1>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button
+      *ngFor="let tab of tabs"
+      [class.active]="activeTab === tab.key"
+      (click)="activeTab = tab.key">
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <!-- Tab Content -->
+  <app-general-settings *ngIf="activeTab === 'general'"></app-general-settings>
+  <app-notification-template-settings *ngIf="activeTab === 'notifications'"></app-notification-template-settings>
+  <app-industry-config-settings *ngIf="activeTab === 'industry'"></app-industry-config-settings>
+</div>

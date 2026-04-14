@@ -1,0 +1,6 @@
+.list-page { padding: 0; }
+.actions-cell { white-space: nowrap; }
+.clickable { cursor: pointer; &:hover { background-color: #F9FAFB; } }
+.text-right { text-align: right; }
+.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.loading-state { display: flex; align-items: center; justify-content: center; padding: 60px 20px; }

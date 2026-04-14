@@ -1,0 +1,37 @@
+<div class="list-page">
+  <app-page-header title="Notifications" subtitle="View all system notifications"></app-page-header>
+
+  <div class="card">
+    <div class="card-body" *ngIf="!isLoading">
+      <div class="notification-list" *ngIf="notifications.length > 0">
+        <div class="notification-item" *ngFor="let n of notifications"
+          [class.unread]="!n.readAt" (click)="markAsRead(n)">
+          <div class="notification-icon">
+            <mat-icon>{{ getChannelIcon(n.channel) }}</mat-icon>
+          </div>
+          <div class="notification-content">
+            <div class="notification-title">{{ n.title }}</div>
+            <div class="notification-message">{{ n.message }}</div>
+            <div class="notification-meta">
+              <span class="badge badge-{{ n.status.toLowerCase() }}">{{ n.status }}</span>
+              <span class="notification-time">{{ n.createdAt | date:'MMM d, y h:mm a' }}</span>
+            </div>
+          </div>
+          <div class="notification-dot" *ngIf="!n.readAt"></div>
+        </div>
+      </div>
+
+      <app-empty-state *ngIf="notifications.length === 0" icon="notifications_off" title="No notifications"
+        message="You have no notifications yet.">
+      </app-empty-state>
+    </div>
+
+    <div class="card-body loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button mat-icon-button [disabled]="page === 1" (click)="onPageChange(page - 1)"><mat-icon>chevron_left</mat-icon></button>
+      <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+      <button mat-icon-button [disabled]="page === totalPages" (click)="onPageChange(page + 1)"><mat-icon>chevron_right</mat-icon></button>
+    </div>
+  </div>
+</div>

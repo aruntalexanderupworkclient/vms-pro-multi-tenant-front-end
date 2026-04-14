@@ -1,0 +1,76 @@
+<div class="reports-page">
+  <app-page-header title="Reports" subtitle="Visit analytics and data export">
+    <button mat-raised-button color="primary" (click)="exportVisits()" [disabled]="isLoading || visits.length === 0">
+      <mat-icon>download</mat-icon> Export CSV
+    </button>
+  </app-page-header>
+
+  <!-- Summary Cards -->
+  <div class="stat-cards" *ngIf="!isLoading">
+    <div class="stat-card">
+      <div class="stat-icon blue"><mat-icon>event_note</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalVisits }}</span>
+        <span class="stat-title">Total Visits</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green"><mat-icon>login</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ checkedInCount }}</span>
+        <span class="stat-title">Checked In</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon gray"><mat-icon>logout</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ checkedOutCount }}</span>
+        <span class="stat-title">Checked Out</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple"><mat-icon>schedule</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-value">{{ scheduledCount }}</span>
+        <span class="stat-title">Scheduled</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visit Data Table -->
+  <div class="card">
+    <div class="card-header"><h3>Visit Data</h3></div>
+    <div class="card-body table-responsive" *ngIf="!isLoading">
+      <table class="data-table" *ngIf="visits.length > 0">
+        <thead>
+          <tr>
+            <th>Visitor</th>
+            <th>Host</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Scheduled</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of visits">
+            <td>{{ v.visitorName }}</td>
+            <td>{{ v.hostName }}</td>
+            <td>{{ v.locationName || '—' }}</td>
+            <td><app-status-badge [status]="v.status"></app-status-badge></td>
+            <td>{{ v.scheduledDateTime | date:'MMM d, y' }}</td>
+            <td>{{ v.checkInTime ? (v.checkInTime | date:'h:mm a') : '—' }}</td>
+            <td>{{ v.checkOutTime ? (v.checkOutTime | date:'h:mm a') : '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-empty-state *ngIf="visits.length === 0" icon="assessment" title="No data"
+        message="No visit data available for reporting.">
+      </app-empty-state>
+    </div>
+
+    <div class="card-body loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+  </div>
+</div>

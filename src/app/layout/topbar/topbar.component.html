@@ -1,0 +1,39 @@
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="topbar-hamburger" (click)="onToggleSidebar()">
+      <span class="material-icons">menu</span>
+    </button>
+    <h2 class="topbar-title">{{ pageTitle }}</h2>
+  </div>
+  <div class="topbar-right">
+    <!-- SignalR Connection Status Indicator -->
+    <div class="connection-status"
+         [class.connected]="connectionStatus === 'connected'"
+         [class.reconnecting]="connectionStatus === 'reconnecting'"
+         [class.disconnected]="connectionStatus === 'disconnected'"
+         [title]="statusTooltip">
+      <span class="status-dot"></span>
+      <span class="status-label">{{ statusLabel }}</span>
+    </div>
+
+    <!-- Notification Bell -->
+    <button class="topbar-icon-btn" routerLink="/notifications">
+      <span class="material-icons">notifications</span>
+    </button>
+
+    <!-- User Menu -->
+    <div class="user-menu" (click)="toggleDropdown()">
+      <div class="avatar">{{ initials }}</div>
+      <span class="user-name" *ngIf="user">{{ user.fullName }}</span>
+      <span class="material-icons arrow">expand_more</span>
+
+      <!-- Dropdown -->
+      <div class="dropdown" *ngIf="showDropdown">
+        <a class="dropdown-item" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,25 @@
+<div class="detail-page" *ngIf="!isLoading && user">
+  <app-page-header [title]="user.fullName" subtitle="User Details">
+    <button mat-button (click)="onBack()"><mat-icon>arrow_back</mat-icon> Back</button>
+    <button mat-raised-button color="primary" (click)="onEdit()" *ngIf="canUpdate"><mat-icon>edit</mat-icon> Edit</button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item"><span class="detail-label">Full Name</span><span class="detail-value">{{ user.fullName }}</span></div>
+        <div class="detail-item"><span class="detail-label">Email</span><span class="detail-value">{{ user.email }}</span></div>
+        <div class="detail-item"><span class="detail-label">Phone</span><span class="detail-value">{{ user.phone || '—' }}</span></div>
+        <div class="detail-item"><span class="detail-label">Role</span><span class="detail-value">{{ user.roleName || '—' }}</span></div>
+        <div class="detail-item"><span class="detail-label">Status</span>
+          <span class="detail-value">
+            <span class="badge" [class.badge-success]="user.isActive" [class.badge-danger]="!user.isActive">{{ user.isActive ? 'Active' : 'Inactive' }}</span>
+          </span>
+        </div>
+        <div class="detail-item"><span class="detail-label">Created</span><span class="detail-value">{{ user.createdAt | date:'MMM d, y h:mm a' }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>

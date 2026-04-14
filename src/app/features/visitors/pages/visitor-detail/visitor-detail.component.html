@@ -1,0 +1,58 @@
+<div class="detail-page" *ngIf="!isLoading && visitor">
+  <app-page-header [title]="visitor.fullName" subtitle="Visitor Details">
+    <button mat-button (click)="onBack()"><mat-icon>arrow_back</mat-icon> Back</button>
+    <button mat-raised-button color="primary" (click)="onEdit()" *ngIf="canUpdate">
+      <mat-icon>edit</mat-icon> Edit
+    </button>
+  </app-page-header>
+
+  <div class="detail-cards">
+    <div class="card">
+      <div class="card-header"><h3>Basic Information</h3></div>
+      <div class="card-body">
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">Full Name</span>
+            <span class="detail-value">{{ visitor.fullName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">{{ visitor.email || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Phone</span>
+            <span class="detail-value">{{ visitor.phone || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Company</span>
+            <span class="detail-value">{{ visitor.company || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">ID Proof Type</span>
+            <span class="detail-value">{{ visitor.idProofType || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">ID Proof Number</span>
+            <span class="detail-value">{{ visitor.idProofNumber || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Status</span>
+            <span class="detail-value">
+              <span class="badge" [class.badge-danger]="visitor.isBlacklisted" [class.badge-success]="!visitor.isBlacklisted">
+                {{ visitor.isBlacklisted ? 'Blacklisted' : 'Active' }}
+              </span>
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Registered</span>
+            <span class="detail-value">{{ visitor.createdAt | date:'MMM d, y h:mm a' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
+</div>

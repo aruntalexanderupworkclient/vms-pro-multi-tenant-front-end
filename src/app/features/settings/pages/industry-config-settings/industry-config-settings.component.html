@@ -1,0 +1,48 @@
+<div class="settings-card card" *ngIf="!isLoading">
+  <div class="card-body">
+    <h3 class="card-title">Industry Configuration</h3>
+
+    <div class="form-grid">
+      <!-- Organisation Type -->
+      <div class="form-group">
+        <label class="form-label">Organisation Type</label>
+        <select class="form-control" [(ngModel)]="config.orgType">
+          <option *ngFor="let org of orgTypes" [value]="org">{{ org }}</option>
+        </select>
+      </div>
+
+      <!-- Max Visit Duration -->
+      <div class="form-group">
+        <label class="form-label">Max Visit Duration (hours)</label>
+        <input type="number" class="form-control" [(ngModel)]="config.maxVisitDuration" min="1" />
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="config.requirePhoto" />
+        Require Photo
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="config.requireIdScan" />
+        Require ID Scan
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="config.enableTokens" />
+        Enable Tokens
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="config.enableAppointments" />
+        Enable Appointments
+      </label>
+    </div>
+
+    <button class="btn btn-primary save-btn" (click)="onSave()" [disabled]="isSaving">
+      {{ isSaving ? 'Saving...' : 'Save Changes' }}
+    </button>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
+</div>

@@ -1,0 +1,44 @@
+<div class="form-page">
+  <app-page-header [title]="isEditMode ? 'Edit Location' : 'New Location'" [subtitle]="isEditMode ? 'Update location details' : 'Add a new location'"></app-page-header>
+  <div class="card" *ngIf="!isLoading">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Name *</mat-label>
+            <input matInput formControlName="name" placeholder="e.g., Building A" />
+            <mat-error>Required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Code</mat-label>
+            <input matInput formControlName="code" placeholder="e.g., BLDG-A" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="typeId">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let t of locationTypes" [value]="t.id">{{ t.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Parent Location</mat-label>
+            <mat-select formControlName="parentId">
+              <mat-option value="">None (Top Level)</mat-option>
+              <mat-option *ngFor="let p of parentLocations" [value]="p.id">{{ p.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="form-field-check" *ngIf="isEditMode">
+            <mat-checkbox formControlName="isActive" color="primary">Active</mat-checkbox>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="isSaving">
+            {{ isSaving ? 'Saving...' : (isEditMode ? 'Update Location' : 'Create Location') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+</div>

@@ -1,0 +1,67 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.main-content {
+  flex: 1;
+  min-height: 100vh;
+  transition: margin-left 0.25s ease;
+  background: #F3F4F6;
+  min-width: 0; // prevent flex child from overflowing
+}
+
+// Desktop sidebar margin via CSS classes (not inline style)
+.sidebar-expanded .main-content {
+  margin-left: 240px;
+}
+
+.sidebar-collapsed .main-content {
+  margin-left: 64px;
+}
+
+.sidebar-hidden .main-content {
+  margin-left: 0;
+}
+
+.page-content {
+  padding: 24px;
+  min-height: calc(100vh - 64px - 48px);
+}
+
+// ── Tablet ──
+@media (max-width: 1024px) {
+  .page-content {
+    padding: 20px;
+  }
+}
+
+// ── Mobile ──
+@media (max-width: 767px) {
+  // On mobile, main-content always starts from left edge
+  .sidebar-expanded .main-content,
+  .sidebar-collapsed .main-content,
+  .sidebar-hidden .main-content {
+    margin-left: 0;
+  }
+
+  .page-content {
+    padding: 16px 12px;
+  }
+}

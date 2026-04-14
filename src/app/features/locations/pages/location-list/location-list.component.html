@@ -1,0 +1,51 @@
+<div class="list-page">
+  <app-page-header title="Locations" subtitle="Manage building locations and areas">
+    <button mat-raised-button color="primary" (click)="onNew()" *ngIf="canCreate">
+      <mat-icon>add</mat-icon> New Location
+    </button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body table-responsive" *ngIf="!isLoading">
+      <table class="data-table" *ngIf="flatLocations.length > 0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Type</th>
+            <th>Level</th>
+            <th>Status</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let loc of flatLocations">
+            <td [style.padding-left.px]="16 + loc.depth * 24">
+              <mat-icon class="tree-icon" *ngIf="loc.depth > 0">subdirectory_arrow_right</mat-icon>
+              {{ loc.name }}
+            </td>
+            <td>{{ loc.code || '—' }}</td>
+            <td>{{ loc.typeName || '—' }}</td>
+            <td>{{ loc.level }}</td>
+            <td>
+              <span class="badge" [class.badge-success]="loc.isActive" [class.badge-danger]="!loc.isActive">
+                {{ loc.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="text-right actions-cell">
+              <button mat-icon-button (click)="onEdit(loc)" *ngIf="canUpdate" matTooltip="Edit"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="onDelete(loc)" *ngIf="canDelete" matTooltip="Delete"><mat-icon>delete</mat-icon></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-empty-state *ngIf="flatLocations.length === 0" icon="location_off" title="No locations found"
+        message="No locations have been set up yet."
+        [actionLabel]="canCreate ? 'Add Location' : ''" (action)="onNew()">
+      </app-empty-state>
+    </div>
+
+    <div class="card-body loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+  </div>
+</div>

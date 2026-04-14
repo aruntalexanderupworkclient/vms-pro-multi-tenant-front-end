@@ -1,0 +1,52 @@
+$primary: #2563EB;
+$border: #E5E7EB;
+$text-secondary: #6B7280;
+$bg-light: #F9FAFB;
+
+.settings-page {
+  padding: 0;
+}
+
+// ── Page Title ──
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+// ── Tab Bar ──
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid $border;
+  margin-bottom: 24px;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: $text-secondary;
+    border-radius: 6px 6px 0 0;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Inter', sans-serif;
+
+    &.active {
+      background: $primary;
+      color: #fff;
+    }
+    &:hover:not(.active) {
+      background: $bg-light;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .tab-bar {
+    flex-wrap: wrap;
+    button { flex: 1 1 auto; text-align: center; }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="list-page">
+  <app-page-header title="Roles" subtitle="Manage user roles and permissions">
+    <button mat-raised-button color="primary" (click)="onNew()" *ngIf="canCreate">
+      <mat-icon>add</mat-icon> New Role
+    </button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body table-responsive" *ngIf="!isLoading">
+      <table class="data-table" *ngIf="roles.length > 0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Admin</th>
+            <th>Status</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of roles" class="clickable" (click)="onView(r)">
+            <td><strong>{{ r.name }}</strong></td>
+            <td>{{ r.description || '—' }}</td>
+            <td><span class="badge" [class.badge-primary]="r.isAdmin">{{ r.isAdmin ? 'Yes' : 'No' }}</span></td>
+            <td>
+              <span class="badge" [class.badge-success]="r.isActive" [class.badge-danger]="!r.isActive">
+                {{ r.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="text-right actions-cell" (click)="$event.stopPropagation()">
+              <button mat-icon-button (click)="onPermissions(r)" *ngIf="canUpdate" matTooltip="Permissions"><mat-icon>security</mat-icon></button>
+              <button mat-icon-button (click)="onEdit(r)" *ngIf="canUpdate" matTooltip="Edit"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="onDelete(r)" *ngIf="canDelete" matTooltip="Delete"><mat-icon>delete</mat-icon></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-empty-state *ngIf="roles.length === 0" icon="security" title="No roles found" message="No roles have been created yet."
+        [actionLabel]="canCreate ? 'Add Role' : ''" (action)="onNew()">
+      </app-empty-state>
+    </div>
+
+    <div class="card-body loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+  </div>
+</div>

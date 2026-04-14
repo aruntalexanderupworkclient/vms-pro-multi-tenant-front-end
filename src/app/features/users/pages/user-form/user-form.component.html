@@ -1,0 +1,59 @@
+<div class="form-page">
+  <app-page-header [title]="isEditMode ? 'Edit User' : 'New User'" [subtitle]="isEditMode ? 'Update user account' : 'Create a new user account'">
+  </app-page-header>
+
+  <div class="card" *ngIf="!isLoading">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name *</mat-label>
+            <input matInput formControlName="fullName" />
+            <mat-error>Required (min 2 chars)</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email *</mat-label>
+            <input matInput formControlName="email" type="email" />
+            <mat-error>Valid email required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="!isEditMode">
+            <mat-label>Password *</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>Required (min 6 chars)</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="roleId">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let r of roles" [value]="r.id">{{ r.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="form-field-check" *ngIf="isEditMode">
+            <mat-checkbox formControlName="isActive" color="primary">Active</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="isSaving">
+            {{ isSaving ? 'Saving...' : (isEditMode ? 'Update User' : 'Create User') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>
+</div>

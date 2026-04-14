@@ -1,0 +1,344 @@
+// ============================================================
+// VMS Pro — Global Styles & Design Tokens
+// ============================================================
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+// ---------- Design Tokens ----------
+$primary:        #2563EB;
+$primary-light:  #EFF6FF;
+$accent-green:   #10B981;
+$accent-purple:  #8B5CF6;
+$accent-red:     #EF4444;
+$accent-teal:    #14B8A6;
+$accent-amber:   #F59E0B;
+$bg-page:        #F3F4F6;
+$bg-card:        #FFFFFF;
+$text-primary:   #111827;
+$text-secondary: #6B7280;
+$border:         #E5E7EB;
+$shadow:         0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+
+// Typography
+$font-base:    14px;
+$font-sm:      12px;
+$font-lg:      16px;
+$font-h1:      24px;
+$font-h2:      20px;
+$font-h3:      16px;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold:   600;
+
+// Border Radius
+$radius-card:    8px;
+$radius-btn:     6px;
+$radius-input:   6px;
+$radius-avatar:  50%;
+
+// Spacing
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-6: 24px;
+$space-8: 32px;
+
+// ---------- Angular Material Theme ----------
+$vms-primary: mat-palette($mat-blue, 600);
+$vms-accent:  mat-palette($mat-green, 500);
+$vms-warn:    mat-palette($mat-red, 500);
+$vms-theme:   mat-light-theme($vms-primary, $vms-accent, $vms-warn);
+@include angular-material-theme($vms-theme);
+
+// ---------- Reset & Base ----------
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: $font-base;
+  color: $text-primary;
+  background-color: $bg-page;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+// ---------- Typography ----------
+h1 { font-size: $font-h1; font-weight: $font-weight-bold; color: $text-primary; margin-bottom: $space-4; }
+h2 { font-size: $font-h2; font-weight: $font-weight-bold; color: $text-primary; margin-bottom: $space-3; }
+h3 { font-size: $font-h3; font-weight: $font-weight-medium; color: $text-primary; margin-bottom: $space-2; }
+
+.text-secondary { color: $text-secondary; }
+.text-sm { font-size: $font-sm; }
+.text-lg { font-size: $font-lg; }
+
+// ---------- Cards ----------
+.card {
+  background: $bg-card;
+  border-radius: $radius-card;
+  box-shadow: $shadow;
+  padding: $space-6;
+  border: 1px solid $border;
+}
+
+// ---------- Buttons ----------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: 10px 20px;
+  border-radius: $radius-btn;
+  font-size: $font-base;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+
+  &-primary {
+    background: $primary;
+    color: #fff;
+    &:hover { background: darken($primary, 8%); }
+  }
+  &-secondary {
+    background: $bg-page;
+    color: $text-primary;
+    border: 1px solid $border;
+    &:hover { background: darken($bg-page, 4%); }
+  }
+  &-danger {
+    background: $accent-red;
+    color: #fff;
+    &:hover { background: darken($accent-red, 8%); }
+  }
+  &-sm {
+    padding: 6px 12px;
+    font-size: $font-sm;
+  }
+}
+
+// ---------- Form Controls ----------
+.form-group {
+  margin-bottom: $space-4;
+
+  label {
+    display: block;
+    font-size: $font-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    margin-bottom: $space-1;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid $border;
+    border-radius: $radius-input;
+    font-size: $font-base;
+    font-family: 'Inter', sans-serif;
+    color: $text-primary;
+    background: #fff;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+}
+
+// ---------- Badges ----------
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: $font-sm;
+  font-weight: $font-weight-medium;
+
+  &-blue   { background: $primary-light; color: $primary; }
+  &-green  { background: rgba($accent-green, 0.1); color: $accent-green; }
+  &-red    { background: rgba($accent-red, 0.1); color: $accent-red; }
+  &-amber  { background: rgba($accent-amber, 0.1); color: darken($accent-amber, 10%); }
+  &-purple { background: rgba($accent-purple, 0.1); color: $accent-purple; }
+  &-teal   { background: rgba($accent-teal, 0.1); color: $accent-teal; }
+  &-success { background: rgba($accent-green, 0.1); color: $accent-green; }
+  &-danger  { background: rgba($accent-red, 0.1); color: $accent-red; }
+  &-primary { background: $primary-light; color: $primary; }
+}
+
+// ---------- Tables ----------
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; // ensures horizontal scroll in .table-responsive on mobile
+
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid $border;
+    font-size: $font-base;
+    white-space: nowrap;
+  }
+
+  th {
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    font-size: $font-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #FAFAFA;
+  }
+
+  tr:hover td {
+    background: #F9FAFB;
+  }
+}
+
+// ---------- Avatar ----------
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-avatar;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-sm;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  background: $primary;
+
+  &-lg { width: 48px; height: 48px; font-size: $font-base; }
+  &-sm { width: 28px; height: 28px; font-size: 10px; }
+}
+
+// ---------- Status ----------
+.status-active   { color: $accent-green; }
+.status-inactive { color: $accent-red; }
+
+// ---------- Slide-over / Modal ----------
+.overlay-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+.slide-over {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 480px;
+  max-width: 100vw;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: $space-6;
+  animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+// ---------- Responsive ----------
+@media (max-width: 767px) {
+  .slide-over { width: 100vw; }
+
+  // Cards - tighter padding on mobile
+  .card {
+    padding: $space-4;
+    border-radius: 6px;
+  }
+
+  // Tables - smaller cells on mobile
+  .data-table {
+    th, td {
+      padding: 10px 10px;
+      font-size: $font-sm;
+    }
+  }
+
+  // Forms - single column
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  // Buttons - full width on mobile when inside page-header
+  .btn {
+    font-size: $font-sm;
+    padding: 8px 14px;
+  }
+
+  // Page headings
+  h1 { font-size: 20px; }
+  h2 { font-size: 18px; }
+}
+
+// ── Table responsive wrapper ──
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// ---------- Scrollbar ----------
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+// ---------- Material Overrides ----------
+.mat-form-field {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  min-width: 0; // prevent overflow in flex/grid layouts
+}
+
+.mat-button, .mat-raised-button, .mat-flat-button {
+  font-family: 'Inter', sans-serif;
+  border-radius: $radius-btn !important;
+}
+
+// ── Snackbar Styles ──
+.snackbar-success {
+  background-color: #10B981 !important;
+  color: #fff !important;
+  .mat-simple-snackbar-action { color: #fff !important; }
+}
+
+.snackbar-error {
+  background-color: #EF4444 !important;
+  color: #fff !important;
+  .mat-simple-snackbar-action { color: #fff !important; }
+}
+
+.snackbar-warning {
+  background-color: #F59E0B !important;
+  color: #fff !important;
+  .mat-simple-snackbar-action { color: #fff !important; }
+}
+
+.snackbar-info {
+  background-color: #2563EB !important;
+  color: #fff !important;
+  .mat-simple-snackbar-action { color: #fff !important; }
+}

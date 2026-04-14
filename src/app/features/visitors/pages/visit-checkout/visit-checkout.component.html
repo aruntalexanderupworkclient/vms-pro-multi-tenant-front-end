@@ -1,0 +1,29 @@
+<div class="checkout-page" *ngIf="!isLoading && visit">
+  <app-page-header title="Check Out" [subtitle]="'Checking out: ' + visit.visitorName"></app-page-header>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="visit-summary">
+        <div class="summary-item"><strong>Visitor:</strong> {{ visit.visitorName }}</div>
+        <div class="summary-item"><strong>Host:</strong> {{ visit.hostName }}</div>
+        <div class="summary-item"><strong>Checked In:</strong> {{ visit.checkInTime | date:'MMM d, y h:mm a' }}</div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onCheckOut()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Remarks (optional)</mat-label>
+          <textarea matInput formControlName="remarks" rows="3" placeholder="Any checkout notes..."></textarea>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="warn" type="submit" [disabled]="isSaving">
+            <mat-icon>logout</mat-icon> {{ isSaving ? 'Processing...' : 'Confirm Check Out' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>

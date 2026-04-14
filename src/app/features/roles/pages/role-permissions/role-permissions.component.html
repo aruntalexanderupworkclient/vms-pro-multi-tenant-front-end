@@ -1,0 +1,60 @@
+<div class="permissions-page" *ngIf="!isLoading && role">
+  <app-page-header [title]="'Permissions — ' + role.name" subtitle="Configure menu permissions for this role">
+    <button mat-button (click)="onCancel()"><mat-icon>arrow_back</mat-icon> Back</button>
+  </app-page-header>
+
+  <div class="card">
+    <div class="card-body permissions-table-wrapper">
+      <table class="data-table permissions-table" *ngIf="permissionRows.length > 0">
+        <thead>
+          <tr>
+            <th>Menu</th>
+            <th class="perm-col">
+              Read
+              <mat-checkbox (change)="toggleAll('canRead', $event.checked)" color="primary" class="col-toggle"></mat-checkbox>
+            </th>
+            <th class="perm-col">
+              Create
+              <mat-checkbox (change)="toggleAll('canCreate', $event.checked)" color="primary" class="col-toggle"></mat-checkbox>
+            </th>
+            <th class="perm-col">
+              Update
+              <mat-checkbox (change)="toggleAll('canUpdate', $event.checked)" color="primary" class="col-toggle"></mat-checkbox>
+            </th>
+            <th class="perm-col">
+              Delete
+              <mat-checkbox (change)="toggleAll('canDelete', $event.checked)" color="warn" class="col-toggle"></mat-checkbox>
+            </th>
+            <th class="perm-col">
+              Print
+              <mat-checkbox (change)="toggleAll('canPrint', $event.checked)" color="primary" class="col-toggle"></mat-checkbox>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of permissionRows">
+            <td><strong>{{ row.menuName }}</strong></td>
+            <td class="perm-col"><mat-checkbox [(ngModel)]="row.canRead" color="primary"></mat-checkbox></td>
+            <td class="perm-col"><mat-checkbox [(ngModel)]="row.canCreate" color="primary"></mat-checkbox></td>
+            <td class="perm-col"><mat-checkbox [(ngModel)]="row.canUpdate" color="primary"></mat-checkbox></td>
+            <td class="perm-col"><mat-checkbox [(ngModel)]="row.canDelete" color="warn"></mat-checkbox></td>
+            <td class="perm-col"><mat-checkbox [(ngModel)]="row.canPrint" color="primary"></mat-checkbox></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-empty-state *ngIf="permissionRows.length === 0" icon="security" title="No menus available"
+        message="No menus found to assign permissions to.">
+      </app-empty-state>
+
+      <div class="form-actions" *ngIf="permissionRows.length > 0">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isSaving">
+          {{ isSaving ? 'Saving...' : 'Save Permissions' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading"><mat-spinner diameter="40"></mat-spinner></div>

@@ -1,0 +1,42 @@
+<div class="settings-card card" *ngIf="!isLoading">
+  <div class="card-body">
+    <h3 class="card-title">Notification Templates</h3>
+
+    <table class="data-table" *ngIf="templates.length > 0">
+      <thead>
+        <tr>
+          <th>Template</th>
+          <th>Channel</th>
+          <th>Enabled</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tmpl of templates">
+          <td>{{ tmpl.name }}</td>
+          <td>{{ tmpl.channel }}</td>
+          <td>
+            <label class="toggle">
+              <input type="checkbox" [(ngModel)]="tmpl.enabled" />
+              <span class="toggle-slider"></span>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <app-empty-state
+      *ngIf="templates.length === 0"
+      icon="notifications"
+      title="No templates"
+      message="No notification templates have been configured yet.">
+    </app-empty-state>
+
+    <button class="btn btn-primary save-btn" (click)="onSave()" [disabled]="isSaving" *ngIf="templates.length > 0">
+      {{ isSaving ? 'Saving...' : 'Save Changes' }}
+    </button>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
+</div>

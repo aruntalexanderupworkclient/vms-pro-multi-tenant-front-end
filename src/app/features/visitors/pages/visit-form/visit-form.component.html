@@ -1,0 +1,58 @@
+<div class="form-page">
+  <app-page-header title="Schedule Visit" subtitle="Create a new visitor visit"></app-page-header>
+
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Visitor *</mat-label>
+            <mat-select formControlName="visitorId">
+              <mat-option *ngFor="let v of visitors" [value]="v.id">{{ v.fullName }}</mat-option>
+            </mat-select>
+            <mat-error>Visitor is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Host *</mat-label>
+            <mat-select formControlName="hostId">
+              <mat-option *ngFor="let u of hosts" [value]="u.id">{{ u.fullName }}</mat-option>
+            </mat-select>
+            <mat-error>Host is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <mat-select formControlName="locationId">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let l of locations" [value]="l.id">{{ l.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Scheduled Date & Time *</mat-label>
+            <input matInput formControlName="scheduledDateTime" type="datetime-local" />
+            <mat-error>Date/time is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-span">
+            <mat-label>Purpose</mat-label>
+            <textarea matInput formControlName="purpose" rows="2"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-span">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput formControlName="remarks" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="isSaving">
+            {{ isSaving ? 'Saving...' : 'Schedule Visit' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

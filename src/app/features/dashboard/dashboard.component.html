@@ -1,0 +1,87 @@
+<div class="dashboard-page">
+  <app-page-header title="Dashboard" subtitle="Welcome back! Here's an overview of your visitor management.">
+  </app-page-header>
+
+  <!-- Stat Cards -->
+  <div class="stat-cards">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <div class="stat-icon" [style.background-color]="stat.bgColor">
+        <mat-icon [style.color]="stat.color">{{ stat.icon }}</mat-icon>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-title">{{ stat.title }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Recent Visits -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Recent Visits</h3>
+        <a mat-button color="primary" routerLink="/visitors/visits">View All</a>
+      </div>
+      <div class="card-body table-responsive" *ngIf="!isLoading">
+        <table class="data-table" *ngIf="recentVisits.length > 0">
+          <thead>
+            <tr>
+              <th>Visitor</th>
+              <th>Host</th>
+              <th>Purpose</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let visit of recentVisits">
+              <td>{{ visit.visitorName }}</td>
+              <td>{{ visit.hostName }}</td>
+              <td>{{ visit.purpose | truncate:30 }}</td>
+              <td>
+                <app-status-badge [status]="visit.status"></app-status-badge>
+              </td>
+              <td>{{ visit.scheduledDateTime | date:'MMM d, y' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <app-empty-state *ngIf="recentVisits.length === 0"
+          icon="event_busy" title="No visits yet"
+          message="Visits will appear here once created.">
+        </app-empty-state>
+      </div>
+      <div class="card-body loading-state" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    </div>
+
+    <!-- Recent Visitors -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Recent Visitors</h3>
+        <a mat-button color="primary" routerLink="/visitors">View All</a>
+      </div>
+      <div class="card-body" *ngIf="!isLoading">
+        <div class="visitor-list" *ngIf="recentVisitors.length > 0">
+          <div class="visitor-item" *ngFor="let visitor of recentVisitors">
+            <div class="avatar avatar-sm">{{ visitor.fullName | initials }}</div>
+            <div class="visitor-info">
+              <span class="visitor-name">{{ visitor.fullName }}</span>
+              <span class="visitor-company">{{ visitor.company || visitor.email || '—' }}</span>
+            </div>
+            <mat-icon class="visitor-status" [class.blacklisted]="visitor.isBlacklisted">
+              {{ visitor.isBlacklisted ? 'block' : 'check_circle' }}
+            </mat-icon>
+          </div>
+        </div>
+        <app-empty-state *ngIf="recentVisitors.length === 0"
+          icon="people_outline" title="No visitors yet"
+          message="Visitors will appear here once registered.">
+        </app-empty-state>
+      </div>
+      <div class="card-body loading-state" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.list-page { padding: 0; }
+.actions-cell { white-space: nowrap; }
+.clickable { cursor: pointer; &:hover { background-color: #F9FAFB; } }
+.text-right { text-align: right; }
+.table-responsive { overflow-x: auto; }
+.loading-state { display: flex; align-items: center; justify-content: center; padding: 60px 20px; }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 20px; border-top: 1px solid #F3F4F6; }
+.page-info { font-size: 13px; color: #6B7280; }

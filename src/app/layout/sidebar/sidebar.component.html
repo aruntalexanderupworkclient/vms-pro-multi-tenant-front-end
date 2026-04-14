@@ -1,0 +1,63 @@
+<nav class="sidebar"
+     [class.expanded]="mode === 'expanded'"
+     [class.collapsed]="mode === 'collapsed'"
+     [class.hidden-sidebar]="mode === 'hidden'">
+  <!-- Logo -->
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <span class="material-icons">verified_user</span>
+    </div>
+    <span class="logo-text" *ngIf="mode === 'expanded'">VMS Pro</span>
+  </div>
+
+  <!-- Menu Items -->
+  <div class="sidebar-menu">
+    <ng-container *ngFor="let item of menuItems">
+      <!-- Divider -->
+      <div class="menu-divider" *ngIf="item.divider"></div>
+
+      <!-- Collapsible Parent Menu -->
+      <ng-container *ngIf="item.children && !item.divider">
+        <a class="menu-item"
+           [class.active]="isParentActive(item)"
+           (click)="toggleExpand(item)"
+           [title]="item.label"
+           *ngIf="hasMenuAccess(item)">
+          <span class="material-icons menu-icon">{{ item.icon }}</span>
+          <span class="menu-label" *ngIf="mode === 'expanded'">{{ item.label }}</span>
+          <span class="material-icons expand-icon" *ngIf="mode === 'expanded'">
+            {{ item.expanded ? 'expand_less' : 'expand_more' }}
+          </span>
+        </a>
+        <div class="submenu" *ngIf="item.expanded && mode === 'expanded'">
+          <a class="menu-item submenu-item"
+             *ngFor="let child of item.children"
+             [class.active]="isSubMenuActive(child, item.children!)"
+             (click)="navigate(child.route)"
+             [title]="child.label">
+            <span class="material-icons submenu-icon">{{ child.icon }}</span>
+            <span class="menu-label">{{ child.label }}</span>
+          </a>
+        </div>
+      </ng-container>
+
+      <!-- Regular Menu Item -->
+      <a class="menu-item"
+         *ngIf="!item.divider && !item.children && hasMenuAccess(item)"
+         [class.active]="isActive(item.route)"
+         (click)="navigate(item.route)"
+         [title]="item.label">
+        <span class="material-icons menu-icon">{{ item.icon }}</span>
+        <span class="menu-label" *ngIf="mode === 'expanded'">{{ item.label }}</span>
+      </a>
+    </ng-container>
+  </div>
+
+  <!-- Logout -->
+  <div class="sidebar-footer">
+    <a class="menu-item" (click)="logout()" title="Logout">
+      <span class="material-icons menu-icon">logout</span>
+      <span class="menu-label" *ngIf="mode === 'expanded'">Logout</span>
+    </a>
+  </div>
+</nav>
