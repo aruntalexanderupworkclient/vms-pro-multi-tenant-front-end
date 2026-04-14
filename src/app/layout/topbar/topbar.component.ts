@@ -16,6 +16,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   user: UserInfo | null = null;
   showDropdown = false;
+  showProfileDrawer = false;
 
   /** SignalR connection status observable for the template */
   connectionStatus$: Observable<ConnectionStatus>;
@@ -117,6 +118,11 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   toggleDropdown(): void {
     this.showDropdown = !this.showDropdown;
+  }
+
+  openProfile(): void {
+    this.showDropdown = false;
+    this.showProfileDrawer = true;
   }
 
   logout(): void {

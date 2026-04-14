@@ -29,6 +29,10 @@
 
       <!-- Dropdown -->
       <div class="dropdown" *ngIf="showDropdown">
+        <a class="dropdown-item profile-item" (click)="openProfile()">
+          <span class="material-icons">person</span>
+          Profile
+        </a>
         <a class="dropdown-item" (click)="logout()">
           <span class="material-icons">logout</span>
           Logout
@@ -37,3 +41,6 @@
     </div>
   </div>
 </header>
+
+<!-- Profile Drawer -->
+<app-profile-drawer [(visible)]="showProfileDrawer"></app-profile-drawer>

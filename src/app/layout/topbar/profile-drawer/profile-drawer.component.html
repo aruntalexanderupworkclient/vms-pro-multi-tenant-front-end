@@ -1,0 +1,83 @@
+<!-- Profile Drawer Overlay -->
+<div class="drawer-overlay" *ngIf="visible" (click)="onOverlayClick($event)">
+  <div class="drawer-panel" [class.open]="visible">
+    <!-- Header -->
+    <div class="drawer-header">
+      <h3>My Profile</h3>
+      <button class="close-btn" (click)="close()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="drawer-loading" *ngIf="loading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="drawer-body" *ngIf="!loading && user">
+      <form [formGroup]="profileForm" (ngSubmit)="save()">
+
+        <!-- Full Name (Editable) -->
+        <div class="field-group">
+          <label class="field-label">
+            Full Name
+            <span class="badge editable">Editable</span>
+          </label>
+          <input type="text" class="field-input" formControlName="fullName" placeholder="Enter full name" />
+          <div class="field-error" *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.hasError('required')">
+            Full name is required
+          </div>
+          <div class="field-error" *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.hasError('minlength')">
+            Minimum 2 characters
+          </div>
+        </div>
+
+        <!-- Email (Read-Only) -->
+        <div class="field-group">
+          <label class="field-label">
+            Email
+            <span class="badge readonly">Read-Only</span>
+          </label>
+          <input type="text" class="field-input readonly" [value]="user.email" readonly />
+        </div>
+
+        <!-- Phone (Editable) -->
+        <div class="field-group">
+          <label class="field-label">
+            Phone
+            <span class="badge editable">Editable</span>
+          </label>
+          <input type="text" class="field-input" formControlName="phone" placeholder="Enter phone number" />
+        </div>
+
+        <!-- Role (Read-Only) -->
+        <div class="field-group">
+          <label class="field-label">
+            Role
+            <span class="badge readonly">Read-Only</span>
+          </label>
+          <input type="text" class="field-input readonly" [value]="user.roleName || 'N/A'" readonly />
+        </div>
+
+        <!-- Status (Read-Only) -->
+        <div class="field-group">
+          <label class="field-label">
+            Status
+            <span class="badge readonly">Read-Only</span>
+          </label>
+          <input type="text" class="field-input readonly" [value]="user.isActive ? 'Active' : 'Inactive'" readonly />
+        </div>
+
+        <!-- Actions -->
+        <div class="drawer-actions">
+          <button type="button" class="btn-cancel" (click)="close()">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="profileForm.invalid || saving">
+            <mat-spinner diameter="18" *ngIf="saving"></mat-spinner>
+            <span *ngIf="!saving">Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

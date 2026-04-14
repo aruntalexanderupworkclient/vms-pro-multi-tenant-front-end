@@ -8,6 +8,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProfileDrawerComponent } from './topbar/profile-drawer/profile-drawer.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FooterComponent } from './footer/footer.component';
     SidebarComponent,
     TopbarComponent,
     FooterComponent,
+    ProfileDrawerComponent,
   ],
   imports: [SharedModule],
   exports: [MainLayoutComponent],
