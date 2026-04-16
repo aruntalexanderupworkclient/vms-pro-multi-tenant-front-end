@@ -107,6 +107,22 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  onMenuClick(event: MouseEvent, route: string): void {
+    if (event.ctrlKey || event.metaKey) {
+      // Allow default browser behavior (open in new tab via routerLink/href)
+      return;
+    }
+    event.preventDefault();
+    this.navigate(route);
+  }
+
+  onMiddleClick(event: MouseEvent, route: string): void {
+    if (event.button === 1 && route) {
+      event.preventDefault();
+      window.open(route, '_blank');
+    }
+  }
+
   logout(): void {
     this.authService.logout();
   }

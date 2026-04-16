@@ -33,7 +33,10 @@
           <a class="menu-item submenu-item"
              *ngFor="let child of item.children"
              [class.active]="isSubMenuActive(child, item.children!)"
-             (click)="navigate(child.route)"
+             [routerLink]="child.route"
+             [attr.href]="child.route"
+             (click)="onMenuClick($event, child.route)"
+             (auxclick)="onMiddleClick($event, child.route)"
              [title]="child.label">
             <span class="material-icons submenu-icon">{{ child.icon }}</span>
             <span class="menu-label">{{ child.label }}</span>
@@ -45,7 +48,10 @@
       <a class="menu-item"
          *ngIf="!item.divider && !item.children && hasMenuAccess(item)"
          [class.active]="isActive(item.route)"
-         (click)="navigate(item.route)"
+         [routerLink]="item.route"
+         [attr.href]="item.route"
+         (click)="onMenuClick($event, item.route)"
+         (auxclick)="onMiddleClick($event, item.route)"
          [title]="item.label">
         <span class="material-icons menu-icon">{{ item.icon }}</span>
         <span class="menu-label" *ngIf="mode === 'expanded'">{{ item.label }}</span>
